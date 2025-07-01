@@ -1,0 +1,30 @@
+Configs: {
+	LockConfig: {
+		DisplayName: Locker Config
+		Headers.SwitchItemKey: SwapTargetItem
+
+		SwitchItem: {
+			Label: SwapTargetItem
+			Tooltip: If ON, when target loadout slot has item, swap it with item in the current locked loadout slot
+		}
+	}
+
+	LoadoutConfig: {
+		DisplayName: Loadout Config
+
+		Headers: {
+			LoadoutLock: Loadout Lock Header
+			ExtraLoadoutSlot: Extra Loadout Slot Header
+		}
+
+		SwitchItem: {
+			Label: Switch Item
+			Tooltip: ""
+		}
+
+		ExtraLoadoutSlot: {
+			Label: Extra Loadout Slot
+			Tooltip: ""
+		}
+	}
+}

@@ -1,0 +1,7 @@
+This mod added equippment-lock feature, the exact locked equippment don't switches when switching loadouts.
+No more three f**king sets of movement accessories OwO.
+
+此mod为装备栏添加了上锁功能，锁住的装备栏中的装备不会在切换配装时随之切换。
+不用准备三件翅膀/鞋子了。
+
+灵感提供：世纪小花

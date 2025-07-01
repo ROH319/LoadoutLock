@@ -1,0 +1,34 @@
+Configs: {
+	LockConfig: {
+		DisplayName: 配装锁配置
+		Headers.SwitchItemKey: 交换对应物品
+
+		SwitchItem: {
+			Label: 是否交换对应栏位物品
+			Tooltip:
+				'''
+				如果开启，锁住装备栏后切换时，对应栏位上的物品会交换
+				否则不交换，但不会因此吞掉物品
+				'''
+		}
+	}
+
+	LoadoutConfig: {
+		// DisplayName: Loadout Config
+
+		Headers: {
+			// LoadoutLock: Loadout Lock Header
+			// ExtraLoadoutSlot: Extra Loadout Slot Header
+		}
+
+		SwitchItem: {
+			// Label: Switch Item
+			// Tooltip: ""
+		}
+
+		ExtraLoadoutSlot: {
+			// Label: Extra Loadout Slot
+			// Tooltip: ""
+		}
+	}
+}

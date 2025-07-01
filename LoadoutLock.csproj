@@ -1,0 +1,13 @@
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>LoadoutLock</AssemblyName>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Localization\en-US_Mods - 复制.LoadoutLock.hjson" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
