@@ -12,8 +12,8 @@ namespace LoadoutLock
 {
     internal class LoadoutSlotPlayer : ModPlayer
     {
-        public EquipmentLoadout[] ExtraLoadouts;
-        public int SavedSlot;
+        //public EquipmentLoadout[] ExtraLoadouts;
+        //public int SavedSlot;
 
         public override void Initialize()
         {
@@ -48,16 +48,12 @@ namespace LoadoutLock
             //}
             base.Load();
         }
-        public override void PostSavePlayer()
-        {
-            base.PostSavePlayer();
-        }
         public override void LoadData(TagCompound tag)
         {
-            if(tag.TryGet<int>("SavedSlot",out int slot))
-            {
-                SavedSlot = slot;
-            }
+            //if(tag.TryGet<int>("SavedSlot",out int slot))
+            //{
+            //    SavedSlot = slot;
+            //}
             //int extralsot = ModContent.GetInstance<LoadoutConfig>().ExtraLoadoutSlot;
             //if (Player.Loadouts.Length < 3 + extralsot)
             //{
@@ -75,17 +71,17 @@ namespace LoadoutLock
             //    LockUtils.LoadInventory(Player.Loadouts[3 + i].Armor, tag.GetList<TagCompound>($"loadout{i + 3}Armor"));
             //    LockUtils.LoadInventory(Player.Loadouts[3 + i].Dye, tag.GetList<TagCompound>($"loadout{i + 3}Dye"));
             //}
-            if (tag.TryGet<int>("CurrentLoadoutIndex", out int index))
-            {
-                Player.CurrentLoadoutIndex = index;
-            }
+            //if (tag.TryGet<int>("CurrentLoadoutIndex", out int index))
+            //{
+            //    Player.CurrentLoadoutIndex = index;
+            //}
             base.LoadData(tag);
         }
         public override void SaveData(TagCompound tag)
         {
-            int extralsot = ModContent.GetInstance<LoadoutConfig>().ExtraLoadoutSlot;
-            tag["SavedSlot"] = extralsot;
-            tag["CurrentLoadoutIndex"] = Player.CurrentLoadoutIndex;
+            //int extralsot = ModContent.GetInstance<LoadoutLockConfig>().ExtraLoadoutSlot;
+            //tag["SavedSlot"] = extralsot;
+            //tag["CurrentLoadoutIndex"] = Player.CurrentLoadoutIndex;
             base.SaveData(tag);
         }
     }

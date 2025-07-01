@@ -63,64 +63,6 @@ namespace LoadoutLock
             }
             return flag;
         }
-        public delegate void LoadPlayerDelegate(Player player, TagCompound tag);
-        public void LoadPlayerHook(LoadPlayerDelegate orig, Player player, TagCompound tag)
-        {
-            orig(player, tag);
-            if (player.name != "")
-            {
-                int extralsot = ModContent.GetInstance<LoadoutConfig>().ExtraLoadoutSlot;
-                int savedslot = player.GetModPlayer<LoadoutSlotPlayer>().SavedSlot;
-                if (player.Loadouts.Length < 3 + extralsot)
-                {
-                    EquipmentLoadout[] temp = new EquipmentLoadout[player.Loadouts.Length + extralsot];
-                    Array.Copy(player.Loadouts, temp, player.Loadouts.Length);
-                    player.Loadouts = temp;
-                    for (int i = 3 + savedslot; i < player.Loadouts.Length; i++)
-                    {
-                        player.Loadouts[i] = new EquipmentLoadout();
-                    }
-                }
-                for(int i = 0; i < player.Loadouts.Length; i++)
-                {
-                    if (player.Loadouts[i] == null) player.Loadouts[i] = new EquipmentLoadout();
-                }
-                int a = player.Loadouts.Length;
-                int b = 0;
-                //for (int i = 0; i < Math.Min(savedslot, extralsot); i++)
-                //{
-                //    LockUtils.LoadInventory(player.Loadouts[3 + i].Armor, tag.GetList<TagCompound>($"loadout{i + 3}Armor"));
-                //    LockUtils.LoadInventory(player.Loadouts[3 + i].Dye, tag.GetList<TagCompound>($"loadout{i + 3}Dye"));
-                //}
-                //if (tag.GetList<TagCompound>("modData").First(t => t.GetString("mod") == "LoadoutLock").GetCompound("data").TryGet<int>("CurrentLoadoutIndex", out int index))
-                //{
-                //    player.CurrentLoadoutIndex = index;
-                //}
-            }
-        }
-        public delegate void LoadLoadoutDelegate(EquipmentLoadout[] loadouts, TagCompound tag);
-        public void LoadLoadoutHook(LoadLoadoutDelegate orig, EquipmentLoadout[] loadouts, TagCompound tag)
-        {
-
-            //int extralsot = ModContent.GetInstance<LoadoutConfig>().ExtraLoadoutSlot;
-            //if (player.Loadouts.Length < 3 + extralsot)
-            //{
-            //    EquipmentLoadout[] temp = new EquipmentLoadout[player.Loadouts.Length + extralsot];
-            //    Array.Copy(player.Loadouts, temp, player.Loadouts.Length);
-            //    player.Loadouts = temp;
-            //    for (int i = 3; i < player.Loadouts.Length; i++)
-            //    {
-            //        player.Loadouts[i] = new EquipmentLoadout();
-            //    }
-            //}
-            orig(loadouts, tag);
-            //for (int i = 0; i < 3; i++)
-            //{
-
-            //    LockUtils.LoadInventory(loadouts[i].Armor, tag.GetList<TagCompound>($"loadout{i}Armor"));
-            //    LockUtils.LoadInventory(loadouts[i].Dye, tag.GetList<TagCompound>($"loadout{i}Dye"));
-            //}
-        }
         public override void Load()
         {
             var accessoryslotloader = typeof(Main).Assembly.GetTypes().First(t => t.Name == "AccessorySlotLoader");
@@ -133,29 +75,29 @@ namespace LoadoutLock
             var setdrawlocation = accessoryslotloader.GetMethod("SetDrawLocation");
             On_EquipmentLoadout.Swap += On_EquipmentLoadout_Swap;
             On_Main.DrawInterface_27_Inventory += On_Main_DrawInterface_27_Inventory;
-            On_Main.DrawLoadoutButtons += On_Main_DrawLoadoutButtons;
-            On_ItemSlot.TryGetSlotColor += On_ItemSlot_TryGetSlotColor;
-            On_Player.Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean += On_Player_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean;
-            On_Player.Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean += On_Player_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean;
-            On_Player.Serialize += On_Player_Serialize;
+            //On_Main.DrawLoadoutButtons += On_Main_DrawLoadoutButtons;
+            //On_ItemSlot.TryGetSlotColor += On_ItemSlot_TryGetSlotColor;
+            //On_Player.Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean += On_Player_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean;
+            //On_Player.Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean += On_Player_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean;
+            //On_Player.Serialize += On_Player_Serialize;
             //Type playertype = typeof(Player);
             //ConstructorInfo[] constructorInfo = playertype.GetConstructors();
             //MonoModHooks.Add(constructorInfo[0],
-            var player = typeof(Main).Assembly.GetTypes().First(t => t.Name == "Player");
+            //var player = typeof(Main).Assembly.GetTypes().First(t => t.Name == "Player");
             
-            var savedata = player.GetMethod("SavePlayer", BindingFlags.Static | BindingFlags.NonPublic);
-            SavePlayerMethod = savedata;
-            var playerio = typeof(Main).Assembly.GetTypes().First(t => t.Name == "PlayerIO");
-            var loadloadout = playerio.GetMethod("LoadLoadouts", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-            if (loadloadout is not null)
-            {
-                MonoModHooks.Add(loadloadout, LoadLoadoutHook);
-            }
-            var loadplayer = playerio.GetMethod("Load", BindingFlags.Static | BindingFlags.NonPublic);
-            if(loadplayer is not null)
-            {
-                MonoModHooks.Add(loadplayer, LoadPlayerHook);
-            }
+            //var savedata = player.GetMethod("SavePlayer", BindingFlags.Static | BindingFlags.NonPublic);
+            //SavePlayerMethod = savedata;
+            //var playerio = typeof(Main).Assembly.GetTypes().First(t => t.Name == "PlayerIO");
+            //var loadloadout = playerio.GetMethod("LoadLoadouts", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+            //if (loadloadout is not null)
+            //{
+            //    MonoModHooks.Add(loadloadout, LoadLoadoutHook);
+            //}
+            //var loadplayer = playerio.GetMethod("Load", BindingFlags.Static | BindingFlags.NonPublic);
+            //if(loadplayer is not null)
+            //{
+            //    MonoModHooks.Add(loadplayer, LoadPlayerHook);
+            //}
             //var tryloaddata = playerio.GetMethod("TryLoadData", BindingFlags.Static);
             //if(tryloaddata is not null)
             //{
@@ -164,136 +106,16 @@ namespace LoadoutLock
             base.Load();
         }
 
-        private void On_Player_Serialize(On_Player.orig_Serialize orig, Terraria.IO.PlayerFileData playerFile, Player newPlayer, System.IO.BinaryWriter fileIO)
-        {
-            orig(playerFile, newPlayer, fileIO);
-            int extraslot = LoadoutConfig.Instance.ExtraLoadoutSlot;
-            int previousslot = newPlayer.Loadouts.Length;
-            if(previousslot < 3 + extraslot)
-            {
-                EquipmentLoadout[] temp = new EquipmentLoadout[previousslot + extraslot];
-                Array.Copy(newPlayer.Loadouts, temp, previousslot);
-                newPlayer.Loadouts = temp;
-                for (int i = previousslot; i < newPlayer.Loadouts.Length; i++)
-                {
-                    newPlayer.Loadouts[i] = new EquipmentLoadout();
-                }
-            }
-        }
-
-        private void On_Player_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean(On_Player.orig_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean orig, Terraria.IO.PlayerFileData data, Player newPlayer, System.IO.BinaryReader fileIO, TagCompound modData, int release, out bool gotToReadName)
-        {
-            int a = newPlayer.Loadouts.Length;
-            int b = 0;
-            orig(data, newPlayer, fileIO, modData, release, out gotToReadName);
-            int c = newPlayer.Loadouts.Length;
-            int d = 0;
-        }
-
-        private void On_Player_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean(On_Player.orig_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean orig, Terraria.IO.PlayerFileData data, Player newPlayer, System.IO.BinaryReader fileIO, int release, out bool gotToReadName)
-        {
-            if (!LockUtils.TryLoadData(data.Path,data.IsCloudSave,out var tag))
-            {
-                //tag = null;
-            }
-            if (tag != null)
-            {
-                var mp = newPlayer.GetModPlayer<LoadoutSlotPlayer>();
-                var modlist = tag.GetList<TagCompound>("modData");
-                var moddata = modlist.FirstOrDefault(t => t.GetString("mod") == "LoadoutLock" && t.GetString("name") == "LoadoutSlotPlayer")?.GetCompound("data");
-                if (moddata != default(TagCompound) && moddata != null)
-                {
-                    mp.LoadData(moddata);
-                    int savedslot = mp.SavedSlot;
-                    if (newPlayer.Loadouts.Length < 3 + savedslot)
-                    {
-                        EquipmentLoadout[] temp = new EquipmentLoadout[newPlayer.Loadouts.Length + savedslot];
-                        newPlayer.Loadouts = temp;
-                        for (int i = 0; i < newPlayer.Loadouts.Length; i++)
-                        {
-                            newPlayer.Loadouts[i] = new EquipmentLoadout();
-                        }
-                    }
-                }
-            }
-            orig(data, newPlayer, fileIO, release, out gotToReadName);
-        }
-
         public override void Unload()
         {
             On_EquipmentLoadout.Swap -= On_EquipmentLoadout_Swap;
             On_Main.DrawInterface_27_Inventory -= On_Main_DrawInterface_27_Inventory;
-            On_Main.DrawLoadoutButtons -= On_Main_DrawLoadoutButtons;
-            On_ItemSlot.TryGetSlotColor -= On_ItemSlot_TryGetSlotColor;
-            On_Player.Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean -= On_Player_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean;
-            On_Player.Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean -= On_Player_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean;
-            On_Player.Serialize -= On_Player_Serialize;
+            //On_Main.DrawLoadoutButtons -= On_Main_DrawLoadoutButtons;
+            //On_ItemSlot.TryGetSlotColor -= On_ItemSlot_TryGetSlotColor;
+            //On_Player.Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean -= On_Player_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean;
+            //On_Player.Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean -= On_Player_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean;
+            //On_Player.Serialize -= On_Player_Serialize;
             base.Unload();
-        }
-        private bool On_ItemSlot_TryGetSlotColor(On_ItemSlot.orig_TryGetSlotColor orig, int loadoutIndex, int context, out Color color)
-        {
-            loadoutIndex %= 3;
-            return orig(loadoutIndex, context, out color);
-        }
-
-        private void On_Main_DrawLoadoutButtons(On_Main.orig_DrawLoadoutButtons orig, int inventoryTop, bool demonHeartSlotAvailable, bool masterModeSlotAvailable)
-        {
-            int accSlot = 10;
-            Player player = Main.player[Main.myPlayer];
-            if (!demonHeartSlotAvailable)
-                accSlot--;
-
-            if (!masterModeSlotAvailable)
-                accSlot--;
-
-            int x = Main.screenWidth - 58 + 14;
-            int num2 = (int)((float)(inventoryTop - 2) + 0f * Main.inventoryScale);
-            int num3 = (int)((float)(inventoryTop - 2) + (float)(accSlot * 56) * Main.inventoryScale);
-            Texture2D value = TextureAssets.Extra[259].Value;
-            Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(x, num2 + 2, 4, num3 - num2);
-            //ItemSlot.GetLoadoutColor(player.CurrentLoadoutIndex);
-            int num4 = player.Loadouts.Length;
-            int num5 = 32;
-            int num6 = 4;
-            int num7 = -1;
-            for (int i = 0; i < num4; i++)
-            {
-                Microsoft.Xna.Framework.Rectangle rectangle2 = new Microsoft.Xna.Framework.Rectangle(rectangle.X + rectangle.Width, rectangle.Y + (num5 + num6) * i, 32, num5);
-                Microsoft.Xna.Framework.Color loadoutColor = ItemSlot.GetLoadoutColor(i);
-                int frameX = ((i == player.CurrentLoadoutIndex) ? 1 : 0);
-                bool flag = false;
-                if (rectangle2.Contains(Main.MouseScreen.ToPoint()))
-                {
-                    flag = true;
-                    //loadoutColor = Microsoft.Xna.Framework.Color.Lerp(loadoutColor, Microsoft.Xna.Framework.Color.White, 0.8f);
-                    loadoutColor = Color.Blue;
-                    player.mouseInterface = true;
-                    if (!Main.mouseText)
-                    {
-                        Main.instance.MouseText(Language.GetTextValue("UI.Loadout" + (i + 1)), 0, 0);
-                        Main.mouseText = true;
-                    }
-
-                    if (Main.mouseLeft && Main.mouseLeftRelease)
-                        player.TrySwitchingLoadout(i);
-                }
-
-                Microsoft.Xna.Framework.Rectangle rectangle3 = value.Frame(3, 3, frameX, i % 3);
-                Main.spriteBatch.Draw(value, rectangle2.Center.ToVector2(), rectangle3, Microsoft.Xna.Framework.Color.White, 0f, rectangle3.Size() / 2f, 1f, SpriteEffects.None, 0f);
-                if (flag)
-                {
-                    rectangle3 = value.Frame(3, 3, 2, i % 3);
-                    Main.spriteBatch.Draw(value, rectangle2.Center.ToVector2(), rectangle3, Main.OurFavoriteColor, 0f, rectangle3.Size() / 2f, 1f, SpriteEffects.None, 0f);
-                }
-
-                UILinkPointNavigator.SetPosition(312 + i > 3 ? 3 : i, rectangle2.Center.ToVector2());
-            }
-
-            if (GetHoveredIndex() != num7)
-            {
-                SetHoveredIndex(num7);
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            }
         }
         private void On_Main_DrawInterface_27_Inventory(On_Main.orig_DrawInterface_27_Inventory orig, Main self)
         {
@@ -394,5 +216,170 @@ namespace LoadoutLock
             var hover = main.GetField("_lastHoveredLoadoutIndex", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
             hover.SetValue(main, index);
         }
+
+        #region Wasted
+
+        private bool On_ItemSlot_TryGetSlotColor(On_ItemSlot.orig_TryGetSlotColor orig, int loadoutIndex, int context, out Color color)
+        {
+            loadoutIndex %= 3;
+            return orig(loadoutIndex, context, out color);
+        }
+
+        private void On_Main_DrawLoadoutButtons(On_Main.orig_DrawLoadoutButtons orig, int inventoryTop, bool demonHeartSlotAvailable, bool masterModeSlotAvailable)
+        {
+            int accSlot = 10;
+            Player player = Main.player[Main.myPlayer];
+            if (!demonHeartSlotAvailable)
+                accSlot--;
+
+            if (!masterModeSlotAvailable)
+                accSlot--;
+
+            int x = Main.screenWidth - 58 + 14;
+            int num2 = (int)((float)(inventoryTop - 2) + 0f * Main.inventoryScale);
+            int num3 = (int)((float)(inventoryTop - 2) + (float)(accSlot * 56) * Main.inventoryScale);
+            Texture2D value = TextureAssets.Extra[259].Value;
+            Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(x, num2 + 2, 4, num3 - num2);
+            //ItemSlot.GetLoadoutColor(player.CurrentLoadoutIndex);
+            int num4 = player.Loadouts.Length;
+            int num5 = 32;
+            int num6 = 4;
+            int num7 = -1;
+            for (int i = 0; i < num4; i++)
+            {
+                Microsoft.Xna.Framework.Rectangle rectangle2 = new Microsoft.Xna.Framework.Rectangle(rectangle.X + rectangle.Width, rectangle.Y + (num5 + num6) * i, 32, num5);
+                Microsoft.Xna.Framework.Color loadoutColor = ItemSlot.GetLoadoutColor(i);
+                int frameX = ((i == player.CurrentLoadoutIndex) ? 1 : 0);
+                bool flag = false;
+                if (rectangle2.Contains(Main.MouseScreen.ToPoint()))
+                {
+                    flag = true;
+                    //loadoutColor = Microsoft.Xna.Framework.Color.Lerp(loadoutColor, Microsoft.Xna.Framework.Color.White, 0.8f);
+                    loadoutColor = Color.Blue;
+                    player.mouseInterface = true;
+                    if (!Main.mouseText)
+                    {
+                        Main.instance.MouseText(Language.GetTextValue("UI.Loadout" + (i + 1)), 0, 0);
+                        Main.mouseText = true;
+                    }
+
+                    if (Main.mouseLeft && Main.mouseLeftRelease)
+                        player.TrySwitchingLoadout(i);
+                }
+
+                Microsoft.Xna.Framework.Rectangle rectangle3 = value.Frame(3, 3, frameX, i % 3);
+                Main.spriteBatch.Draw(value, rectangle2.Center.ToVector2(), rectangle3, Microsoft.Xna.Framework.Color.White, 0f, rectangle3.Size() / 2f, 1f, SpriteEffects.None, 0f);
+                if (flag)
+                {
+                    rectangle3 = value.Frame(3, 3, 2, i % 3);
+                    Main.spriteBatch.Draw(value, rectangle2.Center.ToVector2(), rectangle3, Main.OurFavoriteColor, 0f, rectangle3.Size() / 2f, 1f, SpriteEffects.None, 0f);
+                }
+
+                UILinkPointNavigator.SetPosition(312 + i > 3 ? 3 : i, rectangle2.Center.ToVector2());
+            }
+
+            if (GetHoveredIndex() != num7)
+            {
+                SetHoveredIndex(num7);
+                SoundEngine.PlaySound(SoundID.MenuTick);
+            }
+        }
+        public delegate void LoadPlayerDelegate(Player player, TagCompound tag);
+        //public void LoadPlayerHook(LoadPlayerDelegate orig, Player player, TagCompound tag)
+        //{
+        //    orig(player, tag);
+        //    if (player.name != "")
+        //    {
+        //        int extralsot = ModContent.GetInstance<LoadoutLockConfig>().ExtraLoadoutSlot;
+        //        int savedslot = player.GetModPlayer<LoadoutSlotPlayer>().SavedSlot;
+        //        if (player.Loadouts.Length < 3 + extralsot)
+        //        {
+        //            EquipmentLoadout[] temp = new EquipmentLoadout[player.Loadouts.Length + extralsot];
+        //            Array.Copy(player.Loadouts, temp, player.Loadouts.Length);
+        //            player.Loadouts = temp;
+        //            for (int i = 3 + savedslot; i < player.Loadouts.Length; i++)
+        //            {
+        //                player.Loadouts[i] = new EquipmentLoadout();
+        //            }
+        //        }
+        //        for(int i = 0; i < player.Loadouts.Length; i++)
+        //        {
+        //            if (player.Loadouts[i] == null) player.Loadouts[i] = new EquipmentLoadout();
+        //        }
+        //        int a = player.Loadouts.Length;
+        //        int b = 0;
+        //        //for (int i = 0; i < Math.Min(savedslot, extralsot); i++)
+        //        //{
+        //        //    LockUtils.LoadInventory(player.Loadouts[3 + i].Armor, tag.GetList<TagCompound>($"loadout{i + 3}Armor"));
+        //        //    LockUtils.LoadInventory(player.Loadouts[3 + i].Dye, tag.GetList<TagCompound>($"loadout{i + 3}Dye"));
+        //        //}
+        //        //if (tag.GetList<TagCompound>("modData").First(t => t.GetString("mod") == "LoadoutLock").GetCompound("data").TryGet<int>("CurrentLoadoutIndex", out int index))
+        //        //{
+        //        //    player.CurrentLoadoutIndex = index;
+        //        //}
+        //    }
+        //}
+        public delegate void LoadLoadoutDelegate(EquipmentLoadout[] loadouts, TagCompound tag);
+        public void LoadLoadoutHook(LoadLoadoutDelegate orig, EquipmentLoadout[] loadouts, TagCompound tag)
+        {
+            orig(loadouts, tag);
+        }
+
+        //private void On_Player_Serialize(On_Player.orig_Serialize orig, Terraria.IO.PlayerFileData playerFile, Player newPlayer, System.IO.BinaryWriter fileIO)
+        //{
+        //    orig(playerFile, newPlayer, fileIO);
+        //    int extraslot = LoadoutLockConfig.Instance.ExtraLoadoutSlot;
+        //    int previousslot = newPlayer.Loadouts.Length;
+        //    if(previousslot < 3 + extraslot)
+        //    {
+        //        EquipmentLoadout[] temp = new EquipmentLoadout[previousslot + extraslot];
+        //        Array.Copy(newPlayer.Loadouts, temp, previousslot);
+        //        newPlayer.Loadouts = temp;
+        //        for (int i = previousslot; i < newPlayer.Loadouts.Length; i++)
+        //        {
+        //            newPlayer.Loadouts[i] = new EquipmentLoadout();
+        //        }
+        //    }
+        //}
+
+        private void On_Player_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean(On_Player.orig_Deserialize_PlayerFileData_Player_BinaryReader_TagCompound_int_refBoolean orig, Terraria.IO.PlayerFileData data, Player newPlayer, System.IO.BinaryReader fileIO, TagCompound modData, int release, out bool gotToReadName)
+        {
+            int a = newPlayer.Loadouts.Length;
+            int b = 0;
+            orig(data, newPlayer, fileIO, modData, release, out gotToReadName);
+            int c = newPlayer.Loadouts.Length;
+            int d = 0;
+        }
+
+        private void On_Player_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean(On_Player.orig_Deserialize_PlayerFileData_Player_BinaryReader_int_refBoolean orig, Terraria.IO.PlayerFileData data, Player newPlayer, System.IO.BinaryReader fileIO, int release, out bool gotToReadName)
+        {
+            if (!LockUtils.TryLoadData(data.Path, data.IsCloudSave, out var tag))
+            {
+                //tag = null;
+            }
+            if (tag != null)
+            {
+                var mp = newPlayer.GetModPlayer<LoadoutSlotPlayer>();
+                var modlist = tag.GetList<TagCompound>("modData");
+                var moddata = modlist.FirstOrDefault(t => t.GetString("mod") == "LoadoutLock" && t.GetString("name") == "LoadoutSlotPlayer")?.GetCompound("data");
+                if (moddata != default(TagCompound) && moddata != null)
+                {
+                    mp.LoadData(moddata);
+                    //int savedslot = mp.SavedSlot;
+                    //if (newPlayer.Loadouts.Length < 3 + savedslot)
+                    //{
+                    //    EquipmentLoadout[] temp = new EquipmentLoadout[newPlayer.Loadouts.Length + savedslot];
+                    //    newPlayer.Loadouts = temp;
+                    //    for (int i = 0; i < newPlayer.Loadouts.Length; i++)
+                    //    {
+                    //        newPlayer.Loadouts[i] = new EquipmentLoadout();
+                    //    }
+                    //}
+                }
+            }
+            orig(data, newPlayer, fileIO, release, out gotToReadName);
+        }
+
+        #endregion
     }
 }

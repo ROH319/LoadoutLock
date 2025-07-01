@@ -32,7 +32,7 @@ namespace LoadoutLock
 
         private void On_Player_TrySwitchingLoadout(On_Player.orig_TrySwitchingLoadout orig, Player self, int loadoutIndex)
         {
-            if (ModContent.GetInstance<LoadoutConfig>().SwitchItem)
+            if (ModContent.GetInstance<LoadoutLockConfig>().SwitchItem)
             {
                 var lockAcc = self.GetModPlayer<LockPlayer>().LockAccessory;
                 var oriIndex = self.GetModPlayer<LockPlayer>().OriginalIndex;

@@ -27,4 +27,34 @@ Configs: {
 			Tooltip: ""
 		}
 	}
+
+	LoadoutLockConfig: {
+		DisplayName: Loadout Lock Config
+		Headers.LoadoutLock: Loadout Lock Header
+
+		SwitchItem: {
+			Label: Switch Item
+			Tooltip: ""
+		}
+
+		VanillaLockOffset: {
+			Label: Vanilla Lock Offset
+			Tooltip: ""
+		}
+
+		VanillaLockScale: {
+			Label: Vanilla Lock Scale
+			Tooltip: ""
+		}
+
+		ModdedLockOffset: {
+			Label: Modded Lock Offset
+			Tooltip: ""
+		}
+
+		ModdedLockScale: {
+			Label: Modded Lock Scale
+			Tooltip: ""
+		}
+	}
 }

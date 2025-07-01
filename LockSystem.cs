@@ -14,17 +14,4 @@ namespace LoadoutLock
         
         
     }
-    public class LoadoutConfig : ModConfig
-    {
-        public override ConfigScope Mode => ConfigScope.ServerSide;
-        public static LoadoutConfig Instance;
-        [Header("LoadoutLock")]
-        [DefaultValue(true)]
-        public bool SwitchItem;
-
-        [Header("ExtraLoadoutSlot")]
-        [DefaultValue(0)]
-        [ReloadRequired]
-        public int ExtraLoadoutSlot;
-    }
 }

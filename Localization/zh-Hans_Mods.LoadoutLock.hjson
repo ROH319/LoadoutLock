@@ -1,5 +1,5 @@
 Configs: {
-	LockConfig: {
+	LoadoutLockConfig: {
 		DisplayName: 配装锁配置
 		Headers.SwitchItemKey: 交换对应物品
 
@@ -11,24 +11,25 @@ Configs: {
 				否则不交换，但不会因此吞掉物品
 				'''
 		}
-	}
 
-	LoadoutConfig: {
-		// DisplayName: Loadout Config
-
-		Headers: {
-			// LoadoutLock: Loadout Lock Header
-			// ExtraLoadoutSlot: Extra Loadout Slot Header
+		VanillaLockOffset: {
+			Label: Vanilla Lock Offset
+			Tooltip: ""
 		}
 
-		SwitchItem: {
-			// Label: Switch Item
-			// Tooltip: ""
+		VanillaLockScale: {
+			Label: Vanilla Lock Scale
+			Tooltip: ""
 		}
 
-		ExtraLoadoutSlot: {
-			// Label: Extra Loadout Slot
-			// Tooltip: ""
+		ModdedLockOffset: {
+			Label: Modded Lock Offset
+			Tooltip: ""
+		}
+
+		ModdedLockScale: {
+			Label: Modded Lock Scale
+			Tooltip: ""
 		}
 	}
 }
